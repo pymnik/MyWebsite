@@ -431,21 +431,145 @@
 </section>
 
 <script>
-(function(){
-  const isMobile=()=>window.innerWidth<768;
-  const container=document.getElementById('tl-container'),lineD=document.getElementById('tl-line'),progressD=document.getElementById('tl-progress'),desktopDots=Array.from(document.querySelectorAll('.tl-dot')),mobileTl=document.getElementById('mobile-tl'),lineM=document.getElementById('tl-line-m'),progressM=document.getElementById('tl-progress-m'),mobileDots=Array.from(document.querySelectorAll('.mobile-dot'));
-  function relTop(el,base){return el.getBoundingClientRect().top-base.getBoundingClientRect().top;}
-  function dotCenterY(dot,base){const r=dot.getBoundingClientRect();return r.top-base.getBoundingClientRect().top+r.height/2;}
-  function cardEdge(card,edge,base){const r=card.getBoundingClientRect(),b=base.getBoundingClientRect();return edge==='top'?r.top-b.top:r.bottom-b.top;}
-  function positionMobileDots(){mobileDots.forEach(dot=>{const step=dot.closest('.mobile-step'),card=step.querySelector('.mobile-card'),stepR=step.getBoundingClientRect(),cardR=card.getBoundingClientRect(),dotH=16,cardMidRelToStep=(cardR.top-stepR.top)+cardR.height/2;dot.style.top=(cardMidRelToStep-dotH/2)+'px';dot.style.left='-7px';});}
-  function initMobile(){positionMobileDots();const steps=Array.from(mobileTl.querySelectorAll('.mobile-step')),firstCard=steps[0].querySelector('.mobile-card'),lastCard=steps[steps.length-1].querySelector('.mobile-card'),lineTop=cardEdge(firstCard,'top',mobileTl),lineBot=cardEdge(lastCard,'bottom',mobileTl);lineM.style.top=lineTop+'px';lineM.style.height=(lineBot-lineTop)+'px';progressM.style.top=lineTop+'px';}
-  function updateMobile(){const trigger=window.innerHeight*0.72,lineTop=parseFloat(lineM.style.top)||0;let reachedY=lineTop;const steps=Array.from(mobileTl.querySelectorAll('.mobile-step'));mobileDots.forEach((dot,i)=>{const r=dot.getBoundingClientRect(),midVP=r.top+r.height/2,active=midVP<trigger;dot.style.borderColor=active?'#111827':'#d1d5db';dot.style.backgroundColor=active?'#111827':'#ffffff';if(active){const isLast=i===mobileDots.length-1,card=steps[i].querySelector('.mobile-card');reachedY=isLast?cardEdge(card,'bottom',mobileTl):dotCenterY(dot,mobileTl);}});progressM.style.height=Math.max(0,reachedY-lineTop)+'px';}
-  function initDesktop(){const steps=Array.from(document.querySelectorAll('.tl-step')),firstCard=steps[0].querySelector('.bg-white'),lastCard=steps[steps.length-1].querySelector('.bg-white'),lineTop=cardEdge(firstCard,'top',container),lineBot=cardEdge(lastCard,'bottom',container);lineD.style.top=lineTop+'px';lineD.style.height=(lineBot-lineTop)+'px';progressD.style.top=lineTop+'px';}
-  function updateDesktop(){const trigger=window.innerHeight*0.72,lineTop=parseFloat(lineD.style.top)||0;let reachedY=lineTop;const steps=Array.from(document.querySelectorAll('.tl-step'));desktopDots.forEach((dot,i)=>{const r=dot.getBoundingClientRect(),midVP=r.top+r.height/2,active=midVP<trigger;dot.style.borderColor=active?'#111827':'#d1d5db';dot.style.backgroundColor=active?'#111827':'#ffffff';if(active){const isLast=i===desktopDots.length-1,card=steps[i].querySelector('.bg-white');reachedY=isLast?cardEdge(card,'bottom',container):dotCenterY(dot,container);}});progressD.style.height=Math.max(0,reachedY-lineTop)+'px';}
-  function init(){if(isMobile()){initMobile();updateMobile();}else{initDesktop();updateDesktop();}}
-  window.addEventListener('scroll',()=>{if(isMobile())updateMobile();else updateDesktop();},{passive:true});
-  window.addEventListener('resize',init);
-  if(document.readyState==='complete')init();else window.addEventListener('load',init);
+(function () {
+  const isMobile = () => window.innerWidth < 768;
+
+  // Cache all DOM references once
+  const container = document.getElementById('tl-container');
+  const lineD = document.getElementById('tl-line');
+  const progressD = document.getElementById('tl-progress');
+  const desktopDots = Array.from(document.querySelectorAll('.tl-dot'));
+  const mobileTl = document.getElementById('mobile-tl');
+  const lineM = document.getElementById('tl-line-m');
+  const progressM = document.getElementById('tl-progress-m');
+  const mobileDots = Array.from(document.querySelectorAll('.mobile-dot'));
+
+  // Cache step/card references once
+  const desktopSteps = Array.from(document.querySelectorAll('.tl-step'));
+  const mobileSteps = Array.from(document.querySelectorAll('.mobile-step'));
+  const desktopCards = desktopSteps.map(s => s.querySelector('.bg-white'));
+  const mobileCards = mobileSteps.map(s => s.querySelector('.mobile-card'));
+
+  // Cached layout values — recalculated only on init/resize
+  let lineTopD = 0, lineTopM = 0;
+  let dotMidVPs_D = [];   // dot center Y relative to viewport (updated on scroll via scrollY)
+  let dotMidVPs_M = [];
+  let dotTopOffsets_D = []; // dot center Y relative to container (static after init)
+  let dotTopOffsets_M = [];
+  let cardBottoms_D = [];   // card bottom Y relative to container (static after init)
+  let cardBottoms_M = [];
+  let ticking = false;
+
+  function cacheDesktopLayout() {
+    const baseTop = container.getBoundingClientRect().top + window.scrollY;
+    lineTopD = desktopCards[0].getBoundingClientRect().top + window.scrollY - baseTop;
+    const lineBot = desktopCards[desktopCards.length - 1].getBoundingClientRect().bottom + window.scrollY - baseTop;
+    lineD.style.top = lineTopD + 'px';
+    lineD.style.height = (lineBot - lineTopD) + 'px';
+    progressD.style.top = lineTopD + 'px';
+
+    dotTopOffsets_D = desktopDots.map(dot => {
+      const r = dot.getBoundingClientRect();
+      return r.top + window.scrollY - baseTop + r.height / 2;
+    });
+    cardBottoms_D = desktopCards.map(card =>
+      card.getBoundingClientRect().bottom + window.scrollY - baseTop
+    );
+  }
+
+  function cacheMobileLayout() {
+    // Position dots relative to their step
+    mobileDots.forEach((dot, i) => {
+      const step = mobileSteps[i];
+      const card = mobileCards[i];
+      const stepTop = step.getBoundingClientRect().top;
+      const cardR = card.getBoundingClientRect();
+      const mid = (cardR.top - stepTop) + cardR.height / 2;
+      dot.style.top = (mid - 8) + 'px';
+      dot.style.left = '-7px';
+    });
+
+    const baseTop = mobileTl.getBoundingClientRect().top + window.scrollY;
+    lineTopM = mobileCards[0].getBoundingClientRect().top + window.scrollY - baseTop;
+    const lineBot = mobileCards[mobileCards.length - 1].getBoundingClientRect().bottom + window.scrollY - baseTop;
+    lineM.style.top = lineTopM + 'px';
+    lineM.style.height = (lineBot - lineTopM) + 'px';
+    progressM.style.top = lineTopM + 'px';
+
+    dotTopOffsets_M = mobileDots.map(dot => {
+      const r = dot.getBoundingClientRect();
+      return r.top + window.scrollY - baseTop + r.height / 2;
+    });
+    cardBottoms_M = mobileCards.map(card =>
+      card.getBoundingClientRect().bottom + window.scrollY - baseTop
+    );
+  }
+
+  function updateDesktop() {
+    const trigger = window.innerHeight * 0.72;
+    const scrollY = window.scrollY;
+    const baseScrollOffset = container.getBoundingClientRect().top + scrollY; // cheap — no reflow loop
+    let reachedY = lineTopD;
+    const last = desktopDots.length - 1;
+
+    desktopDots.forEach((dot, i) => {
+      // Convert cached absolute offset back to viewport position
+      const midVP = dotTopOffsets_D[i] + baseScrollOffset - scrollY;
+      // Simplified: midVP = dotTopOffsets_D[i] - (scrollY - baseScrollOffset at init)
+      // Actually: dotAbsY = dotTopOffsets_D[i] + baseAbsTop_at_init
+      // midVP = dotAbsY - scrollY
+      const active = midVP < trigger;
+      dot.style.borderColor = active ? '#111827' : '#d1d5db';
+      dot.style.backgroundColor = active ? '#111827' : '#ffffff';
+      if (active) reachedY = i === last ? cardBottoms_D[i] : dotTopOffsets_D[i];
+    });
+
+    progressD.style.height = Math.max(0, reachedY - lineTopD) + 'px';
+  }
+
+  function updateMobile() {
+    const trigger = window.innerHeight * 0.72;
+    const scrollY = window.scrollY;
+    const baseAbsTop = mobileTl.getBoundingClientRect().top + scrollY;
+    let reachedY = lineTopM;
+    const last = mobileDots.length - 1;
+
+    mobileDots.forEach((dot, i) => {
+      const midVP = dotTopOffsets_M[i] + baseAbsTop - scrollY;
+      const active = midVP < trigger;
+      dot.style.borderColor = active ? '#111827' : '#d1d5db';
+      dot.style.backgroundColor = active ? '#111827' : '#ffffff';
+      if (active) reachedY = i === last ? cardBottoms_M[i] : dotTopOffsets_M[i];
+    });
+
+    progressM.style.height = Math.max(0, reachedY - lineTopM) + 'px';
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        if (isMobile()) updateMobile();
+        else updateDesktop();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  function init() {
+    if (isMobile()) {
+      cacheMobileLayout();
+      updateMobile();
+    } else {
+      cacheDesktopLayout();
+      updateDesktop();
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', init);
+  if (document.readyState === 'complete') init();
+  else window.addEventListener('load', init);
 })();
 </script>
 
@@ -482,24 +606,96 @@
 </section>
 
 <script>
-(function(){
-  const track=document.getElementById('testimonialTrack'),cards=Array.from(document.querySelectorAll('.testimonial-card')),indicators=Array.from(document.querySelectorAll('.tl-indicator')),total=cards.length;
-  let index=0,timer=null;
-  function isMobile(){return window.innerWidth<768;}
-  function getVisible(){return isMobile()?1:2;}
-  function getStepPct(){return isMobile()?100:50;}
-  function getMaxIndex(){return total-getVisible();}
-  function goTo(i){const maxIndex=getMaxIndex();index=Math.max(0,Math.min(i,maxIndex));track.style.transform='translateX(-'+(index*getStepPct())+'%)';const visible=getVisible();cards.forEach(function(card,ci){const inner=card.querySelector('div');const isVisible=ci>=index&&ci<index+visible;inner.style.opacity=isVisible?'1':'0.4';inner.style.transform=isVisible?'scale(1)':'scale(0.97)';});indicators.forEach(function(dot,di){const active=di===index;dot.style.width=active?'24px':'6px';dot.style.background=active?'#111827':'#d1d5db';dot.style.display=(!isMobile()&&di===3)?'none':'';});}
-  function next(){goTo(index>=getMaxIndex()?0:index+1);}
-  function startTimer(){clearInterval(timer);timer=setInterval(next,4000);}
-  indicators.forEach(function(dot){dot.addEventListener('click',function(){goTo(parseInt(dot.dataset.index));startTimer();});});
-  let touchStartX=0;
-  track.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;clearInterval(timer);},{passive:true});
-  track.addEventListener('touchend',function(e){const diff=touchStartX-e.changedTouches[0].clientX;if(Math.abs(diff)>40){diff>0?next():goTo(index-1);}startTimer();},{passive:true});
-  track.addEventListener('mouseenter',function(){clearInterval(timer);});
-  track.addEventListener('mouseleave',startTimer);
-  window.addEventListener('resize',function(){goTo(index);});
-  goTo(0);startTimer();
+(function () {
+  const track = document.getElementById('testimonialTrack');
+  const cards = Array.from(document.querySelectorAll('.testimonial-card'));
+  const inners = cards.map(c => c.querySelector('div')); // cache inner divs once
+  const indicators = Array.from(document.querySelectorAll('.tl-indicator'));
+  const total = cards.length;
+
+  let index = 0;
+  let timer = null;
+  let resizeTimer = null;
+
+  // Cached layout state — only recomputed on resize
+  let mobile = window.innerWidth < 768;
+  let visible = mobile ? 1 : 2;
+  let stepPct = mobile ? 100 : 50;
+  let maxIndex = total - visible;
+
+  function recacheLayout() {
+    mobile = window.innerWidth < 768;
+    visible = mobile ? 1 : 2;
+    stepPct = mobile ? 100 : 50;
+    maxIndex = total - visible;
+  }
+
+  function goTo(i) {
+    index = i < 0 ? 0 : i > maxIndex ? 0 : i;
+
+    // Batch all writes together — no interleaved reads
+    track.style.transform = 'translateX(-' + (index * stepPct) + '%)';
+
+    const end = index + visible;
+    inners.forEach((inner, ci) => {
+      const isVisible = ci >= index && ci < end;
+      inner.style.opacity = isVisible ? '1' : '0.4';
+      inner.style.transform = isVisible ? 'scale(1)' : 'scale(0.97)';
+    });
+
+    indicators.forEach((dot, di) => {
+      const active = di === index;
+      dot.style.width = active ? '24px' : '6px';
+      dot.style.background = active ? '#111827' : '#d1d5db';
+      // Use cached `mobile` instead of calling isMobile() per dot
+      dot.style.display = (!mobile && di === 3) ? 'none' : '';
+    });
+  }
+
+  function next() {
+    goTo(index >= maxIndex ? 0 : index + 1);
+  }
+
+  function startTimer() {
+    clearInterval(timer);
+    timer = setInterval(next, 4000);
+  }
+
+  indicators.forEach(dot => {
+    dot.addEventListener('click', () => {
+      goTo(parseInt(dot.dataset.index));
+      startTimer();
+    });
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    clearInterval(timer);
+  }, { passive: true });
+
+  track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? next() : goTo(index - 1);
+    startTimer();
+  }, { passive: true });
+
+  // Pause on hover (desktop only)
+  track.addEventListener('mouseenter', () => clearInterval(timer));
+  track.addEventListener('mouseleave', startTimer);
+
+  // Debounced resize — prevents goTo firing 30+ times during a drag
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      recacheLayout();
+      goTo(index);
+    }, 150);
+  });
+
+  goTo(0);
+  startTimer();
 })();
 </script>
 
