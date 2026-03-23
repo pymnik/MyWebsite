@@ -3,6 +3,7 @@
 ══════════════════════════════════════════════ */
 const TRANSLATIONS = {
   RU: {
+    title: 'Verity Web - Современные IT-решения для растущего бизнеса',
     /* Navbar */
     nav_home:     'Главная',
     nav_services: 'Услуги',
@@ -13,8 +14,8 @@ const TRANSLATIONS = {
     nav_cta:      'Связаться',
 
     /* Hero */
-    hero_h1_1:   'Создаем цифровые решения',
-    hero_h1_2:   'для растущего бизнеса',
+    hero_h1_1:   'Создаем IT Решения для',
+    hero_h1_2:   'Растущего Бизнеса',
     hero_p:      'Помогаем привлекать клиентов, увеличивать продажи и расти с помощью современных IT-решений.',
     hero_cta:    'Бесплатная консультация',
 
@@ -76,7 +77,7 @@ const TRANSLATIONS = {
     reviews_h2:    'Наши клиенты',
     reviews_p:     'Отзывы компаний, которым мы предоставляем свои услуги',
     rev1: 'Сайт был разработан оперативно и по разумной цене. После запуска мы отметили рост количества клиентов. Процесс разработки прошёл эффективно и без осложнений.',
-    rev1_name: 'Marina Petrova', rev1_role: 'CEO',
+    rev1_name: 'Marina Fialko', rev1_role: 'CEO',
     rev2: 'Разработка оказалась доступной по стоимости, при этом качество и функционал полностью соответствовали ожиданиям. Новый сайт сделал взаимодействие с клиентами удобнее.',
     rev2_name: 'Martins Zeidenbergs', rev2_role: 'Founder',
     rev3: 'Отличная коммуникация и очень профессиональный подход к дизайну. Сотрудничество было комфортно, все этапы понятны и прозрачны.',
@@ -118,6 +119,8 @@ const TRANSLATIONS = {
   },
 
   EN: {
+    title: 'Verity Web | Modern IT Solutions for Growing Businesses',
+
     nav_home:     'Home',
     nav_services: 'Services',
     nav_about:    'About Us',
@@ -189,7 +192,7 @@ const TRANSLATIONS = {
     reviews_h2: 'Our Clients',
     reviews_p: 'Feedback from companies we work with',
     rev1: 'The site was developed quickly and at a reasonable cost. After launch, we noticed an increase in client inquiries. The development process was efficient and smooth.',
-    rev1_name: 'Marina Petrova', rev1_role: 'CEO',
+    rev1_name: 'Marina Fialko', rev1_role: 'CEO',
     rev2: 'Development was affordable, while quality and functionality met expectations. The new site made client interactions more convenient.',
     rev2_name: 'Martins Zeidenbergs', rev2_role: 'Founder',
     rev3: 'Excellent communication and very professional design approach. Collaboration was comfortable, and every step was clear and transparent.',
@@ -231,6 +234,8 @@ const TRANSLATIONS = {
   },
 
   LV: {
+    title: 'Verity Web | Modernie IT Risinājumi Augošiem Uzņēmumiem',
+
     nav_home:     'Sākums',
     nav_services: 'Pakalpojumi',
     nav_about:    'Par mums',
@@ -239,7 +244,7 @@ const TRANSLATIONS = {
     nav_contact:  'Kontakti',
     nav_cta:      'Sazināties',
 
-    hero_h1_1:   'Veidojam Digitālus Risinājumus',
+    hero_h1_1:   'Izstrādājam IT Risinājumus',
     hero_h1_2:   'Augošiem Uzņēmumiem',
     hero_p:      'Palīdzam piesaistīt klientus, palielināt pārdošanas apjomus un augt, izmantojot mūsdienīgus IT risinājumus.',
     hero_cta:    'Bezmaksas konsultācija',
@@ -256,7 +261,7 @@ const TRANSLATIONS = {
     svc4_desc: 'Nepārtraukts tehniskais atbalsts un ātra problēmu risināšana bez dīkstāves.',
     svc5_title: 'IT Konsultācijas',
     svc5_desc: 'Palīdzam izvēlēties pareizo risinājumu un stratēģiju projekta uzlabošanai un attīstībai.',
-    svc6_title: 'Attīstība pēc palaišanas',
+    svc6_title: 'Attīstība pēc starta',
     svc6_desc: 'Uzlabojumi, SEO, jaunas funkcijas un esošā projekta optimizācija turpmākai izaugsmei.',
 
     /* About */
@@ -300,9 +305,9 @@ const TRANSLATIONS = {
     reviews_label: 'Atsauksmes',
     reviews_h2: 'Mūsu Klienti',
     reviews_p: 'Atsauksmes no uzņēmumiem, ar kuriem sadarbojamies',
-    rev1: 'Mājaslapa tika izstrādāta ātri un par saprātīgu cenu. Pēc palaišanas pamanījām klientu pieplūdumu. Izstrādes process bija efektīvs un gluds.',
-    rev1_name: 'Marina Petrova', rev1_role: 'Izpilddirektore',
-    rev2: 'Izstrāde bija pieejama pēc izmaksām, kvalitāte un funkcionalitāte atbilda gaidām. Jaunā mājaslapa padarīja mijiedarbību ar klientiem ērtāku.',
+    rev1: 'Mājaslapa tika izstrādāta ātri un par saprātīgu cenu. Pēc palaišanas pamanījām klientu pieplūdumu. Izstrādes process bija efektīvs un neradja problēmas.',
+    rev1_name: 'Marina Fialko', rev1_role: 'Izpilddirektore',
+    rev2: 'Izstrāde bija pieejama pēc izmaksām, kvalitāte un funkcionalitāte atbilda gaidām. Jaunā mājaslapa padarīja komunikāciju ar klientiem ērtāku.',
     rev2_name: 'Martins Zeidenbergs', rev2_role: 'Dibinātājs',
     rev3: 'Lieliska komunikācija un profesionāla dizaina pieeja. Sadarbība bija ērta, visi posmi skaidri un pārredzami.',
     rev3_name: 'Kart Vaher', rev3_role: 'Izpilddirektors',

@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Development</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="script.js"></script>
 <link rel="stylesheet" href="output.css">
 <link rel="stylesheet" href="styles.css">
+<title data-i18n="title"></title>
 </head>
 <body class="bg-gray-50">
 
@@ -36,7 +36,6 @@
     </div>
 
     <div class="hidden md:flex items-center gap-3">
-      <!-- Language Selector -->
       <div class="lang-selector relative" id="langSelector">
         <button id="langBtn" onclick="toggleLangDropdown()"
           class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 hover:border-gray-300 bg-white/60 hover:bg-white transition-all duration-200 text-sm text-gray-600 hover:text-gray-900">
@@ -77,7 +76,6 @@
     </button>
   </div>
 
-  <!-- Mobile Menu -->
   <div id="mobileMenu" class="md:hidden overflow-hidden transition-all duration-300 ease-in-out" style="max-height:0;opacity:0">
     <div class="px-6 pb-6 pt-2 bg-white/95 backdrop-blur-md border-t border-gray-100 flex flex-col gap-1">
       <a href="#hero"     onclick="closeMobileMenu()" class="flex items-center gap-3 px-3 py-3 rounded-xl text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-all duration-150" data-i18n="nav_home"></a>
@@ -100,10 +98,8 @@
 </nav>
 
 <script>
-  /* ── Declare lang globally so all scripts can access it ── */
   const lang = new URLSearchParams(window.location.search).get('lang') || 'EN';
 
-  /* ── Set active lang indicators on load ── */
   (function() {
     const langCodeEl = document.getElementById('langCode');
     if (langCodeEl) langCodeEl.textContent = lang;
@@ -244,22 +240,22 @@
     }
   }
   else if (lang === 'LV') {
-    scaleh1_1.style.fontSize = '3.4rem';
-    scaleh1_2.style.fontSize = '3.4rem';
+    scaleh1_1.style.fontSize = '4rem';
+    scaleh1_2.style.fontSize = '4rem';
     scale_content.style.maxWidth = '60vw';
     if(window.innerWidth < 500){
-      scaleh1_1.style.fontSize = '2.5rem';
-      scaleh1_2.style.fontSize = '2.5rem';
+      scaleh1_1.style.fontSize = '3rem';
+      scaleh1_2.style.fontSize = '3rem';
       scale_content.style.maxWidth = '42rem';
     }
   }
   else if (lang === 'RU') {
-    scaleh1_1.style.fontSize = '3.6rem';
-    scaleh1_2.style.fontSize = '3.6rem';
+    scaleh1_1.style.fontSize = '4rem';
+    scaleh1_2.style.fontSize = '4rem';
     scale_content.style.maxWidth = '60vw';
     if(window.innerWidth < 500){
-      scaleh1_1.style.fontSize = '2.3rem';
-      scaleh1_2.style.fontSize = '2.3rem';
+      scaleh1_1.style.fontSize = '3rem';
+      scaleh1_2.style.fontSize = '3rem';
       scale_content.style.maxWidth = '42rem';
     }
   }
@@ -269,22 +265,18 @@
   function scaleScene() {
     const vw = window.innerWidth;
  
-    // ── Desktop: left:50% + translateX(-halfSceneWidth) = always centred ──
     const inner   = document.getElementById('scene-inner');
     const wrapper = document.getElementById('scene-wrapper');
     if (inner && wrapper) {
       const SCENE_W  = 1600;
       const scale    = Math.min(1, vw / SCENE_W);
-      // left:50% puts the element's left edge at viewport centre.
-      // We then shift left by half the *scaled* scene width to truly centre it.
       const halfW = (SCENE_W * scale) / 2;
       inner.style.transform = 'translateX(-' + halfW + 'px) scale(' + scale + ')';
       inner.style.transformOrigin = 'top left';
-      inner.style.marginLeft = '';           // clear any old value
+      inner.style.marginLeft = '';
       wrapper.style.height   = (550 * scale + 280) + 'px';
     }
  
-    // ── Mobile: grows smoothly from 320px → 768px, then desktop takes over ──
     const mInner  = document.getElementById('mobile-scene-inner');
     const mWrapper = document.getElementById('mobile-scene-wrapper');
     if (mInner && mWrapper) {
@@ -355,7 +347,6 @@
   <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300 z-20"></div>
   <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-gray-50 to-transparent z-0"></div>
 
-  <!-- blur-3xl → radial-gradient, same fix as all other sections -->
   <div class="absolute pointer-events-none" style="top:-15%;left:-12%;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(203,213,225,0.55) 0%,transparent 70%);"></div>
   <div class="absolute pointer-events-none" style="bottom:-15%;right:-12%;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(156,163,175,0.4) 0%,transparent 70%);"></div>
 
@@ -368,8 +359,6 @@
 
     <div class="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 w-full items-center">
 
-      <!-- hover:-translate-y-1 removed from inline classes, handled by CSS below -->
-      <!-- will-change:transform added so the layer is promoted before hover, not during -->
       <div class="about-card flex flex-col items-start text-left">
         <div class="bg-gray-100 p-3 md:p-5 rounded-full mb-3 md:mb-4 shadow-sm"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 md:w-8 md:h-8 text-gray-600"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"/></svg></div>
         <h3 class="font-semibold text-sm md:text-lg mb-1 md:mb-2" data-i18n="about1_title"></h3>
@@ -399,13 +388,10 @@
 </section>
 
 <style>
-  /* Pre-promote cards to their own layer BEFORE hover happens —
-     prevents the stutter caused by mid-interaction layer promotion */
   .about-card {
     will-change: transform;
     transition: transform 0.25s ease;
   }
-  /* Desktop only — no hover state on mobile, saves 4 unnecessary GPU layers */
   @media (hover: hover) {
     .about-card:hover {
       transform: translateY(-4px);
@@ -416,15 +402,14 @@
 <!-- ══════════════ PROCESS ══════════════ -->
 <section id="process" class="relative py-24 bg-gray-50 overflow-hidden">
 
-  <!-- Dot grid: use a tiny base64 SVG instead of radial-gradient (faster compositing) -->
-  <div class="absolute inset-0 pointer-events-none" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2728%27 height=%2728%27%3E%3Ccircle cx=%2714%27 cy=%2714%27 r=%271.5%27 fill=%27%23cbd5e1%27/%3E%3C/svg%3E');opacity:0.5;"></div>
+  <div class="absolute md:hidden inset-0 pointer-events-none" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2728%27 height=%2728%27%3E%3Ccircle cx=%2712%27 cy=%2714%27 r=%271.5%27 fill=%27%23cbd5e1%27/%3E%3C/svg%3E');opacity:0.5;"></div>
+  <div class="absolute hidden md:block inset-0 pointer-events-none" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2728%27 height=%2728%27%3E%3Ccircle cx=%2716%27 cy=%2714%27 r=%271.5%27 fill=%27%23cbd5e1%27/%3E%3C/svg%3E');opacity:0.5;"></div>
 
   <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gray-300 z-20"></div>
   <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-gray-50 to-transparent z-0"></div>
 
   <div class="max-w-6xl mx-auto px-6 relative" id="tl-container">
 
-    <!-- Progress lines: use scaleY instead of height (GPU only, no reflow) -->
     <div id="tl-line"     class="absolute hidden md:block left-1/2 -translate-x-1/2 w-[2px] bg-gray-200" style="top:0;height:0;transform-origin:top center;"></div>
     <div id="tl-progress" class="absolute hidden md:block left-1/2 -translate-x-1/2 w-[2px] bg-gray-900" style="top:0;height:0;transform:scaleY(0);transform-origin:top center;transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);will-change:transform;"></div>
 
@@ -476,14 +461,12 @@
   const desktopCards = desktopSteps.map(s => s.querySelector('.bg-white'));
   const mobileCards  = mobileSteps.map(s => s.querySelector('.mobile-card'));
 
-  // Cached absolute offsets (page coords) — set on init, never touched on scroll
   let lineTopD = 0, lineTotalD = 1;
   let lineTopM = 0, lineTotalM = 1;
   let dotAbsY_D = [];
   let dotAbsY_M = [];
   let cardAbsBottom_D = [];
   let cardAbsBottom_M = [];
-  // Cached absolute top of each scroll container — avoids getBoundingClientRect on scroll
   let containerAbsTop = 0;
   let mobileTlAbsTop  = 0;
 
@@ -499,7 +482,7 @@
     lineD.style.top    = lineTopD + 'px';
     lineD.style.height = lineTotalD + 'px';
     progressD.style.top    = lineTopD + 'px';
-    progressD.style.height = lineTotalD + 'px'; // full height, controlled by scaleY
+    progressD.style.height = lineTotalD + 'px';
     dotAbsY_D       = desktopDots.map(d => { const r = d.getBoundingClientRect(); return r.top + window.scrollY + r.height / 2; });
     cardAbsBottom_D = desktopCards.map(c => c.getBoundingClientRect().bottom + window.scrollY);
   }
@@ -519,7 +502,7 @@
     lineM.style.top    = lineTopM + 'px';
     lineM.style.height = lineTotalM + 'px';
     progressM.style.top    = lineTopM + 'px';
-    progressM.style.height = lineTotalM + 'px'; // full height, scaleY does the clipping
+    progressM.style.height = lineTotalM + 'px';
     dotAbsY_M       = mobileDots.map(d => { const r = d.getBoundingClientRect(); return r.top + window.scrollY + r.height / 2; });
     cardAbsBottom_M = mobileCards.map(c => c.getBoundingClientRect().bottom + window.scrollY);
   }
@@ -599,15 +582,13 @@
 
   <div class="relative max-w-6xl mx-auto px-6">
     <div class="overflow-hidden">
-      <!-- will-change:transform on the track itself for GPU-composited sliding -->
       <div id="testimonialTrack" class="flex" style="will-change:transform;transition:transform 0.55s cubic-bezier(0.4,0,0.2,1);">
 
-        <!-- Transitions moved to CSS class, not inline style — avoids style recalc on every goTo() -->
         <div class="testimonial-card flex-shrink-0 w-full md:w-1/2 px-3">
           <div class="tc-inner bg-white rounded-2xl border border-gray-100 shadow-sm p-8 h-full flex flex-col justify-between">
             <div class="text-5xl font-serif text-gray-200 leading-none mb-2 select-none">&ldquo;</div>
             <p class="text-gray-600 text-base leading-relaxed flex-1 mb-8" data-i18n="rev1"></p>
-            <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-medium" style="background:#dbeafe;color:#1d4ed8;">MR</div><div><div class="text-sm font-medium text-gray-900" data-i18n="rev1_name"></div><div class="text-xs text-gray-400 mt-0.5" data-i18n="rev1_role"></div></div></div>
+            <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-sm font-medium" style="background:#dbeafe;color:#1d4ed8;">MF</div><div><div class="text-sm font-medium text-gray-900" data-i18n="rev1_name"></div><div class="text-xs text-gray-400 mt-0.5" data-i18n="rev1_role"></div></div></div>
           </div>
         </div>
 
@@ -647,7 +628,6 @@
   </div>
 </section>
 
-<!-- Card transitions in CSS — not set via JS on every goTo() call -->
 <style>
   .tc-inner {
     opacity: 1;
@@ -691,7 +671,6 @@
 
     track.style.transform = 'translateX(-' + (index * stepPct) + '%)';
 
-    // Toggle class instead of writing inline opacity+transform on every card
     inners.forEach((inner, ci) => {
       inner.classList.toggle('tc-dim', !(ci >= index && ci < end));
     });
@@ -748,10 +727,8 @@
 <!-- ══════════════ CONTACT ══════════════ -->
 <section id="contact" class="relative py-16 md:py-28 bg-gray-50 overflow-hidden">
 
-  <!-- dot grid: SVG tile instead of radial-gradient -->
   <div class="absolute inset-0 pointer-events-none" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2728%27 height=%2728%27%3E%3Ccircle cx=%2714%27 cy=%2714%27 r=%271.5%27 fill=%27%23cbd5e1%27/%3E%3C/svg%3E');opacity:0.45;"></div>
 
-  <!-- blobs: radial-gradient instead of filter:blur -->
   <div class="absolute pointer-events-none" style="top:-15%;left:-10%;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(203,213,225,0.55) 0%,transparent 60%);"></div>
   <div class="absolute pointer-events-none" style="bottom:-15%;right:-8%;width:750px;height:750px;border-radius:50%;background:radial-gradient(circle,rgba(203,213,225,0.5) 0%,transparent 60%);"></div>
 
@@ -810,7 +787,6 @@
             </a>
           </div>
 
-          <!-- Status dot: replace animate-ping with CSS animation using opacity only (no scale/transform repaint) -->
           <div class="fade-up d3 flex items-center gap-3 bg-white rounded-2xl border border-gray-100 shadow-sm px-5 md:px-6 py-4">
             <div class="relative flex-shrink-0 w-2.5 h-2.5">
               <div class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></div>
@@ -826,7 +802,6 @@
 </section>
 
 <style>
-  /* opacity-only pulse — no scale means no repaint, compositor handles it entirely */
   @keyframes status-pulse {
     0%, 100% { opacity: 0.7; }
     50%       { opacity: 0;   }
