@@ -114,7 +114,7 @@ const TRANSLATIONS = {
     footer_cta_label: 'Начать проект',
     footer_cta_p:     'Есть задача? Обсудим её бесплатно',
     footer_cta:       'Бесплатная консультация',
-    footer_copy:      '© 2025 Nikita. Все права защищены.',
+    footer_copy:      '© 2025 Verity Web. Все права защищены.',
     footer_sub:       'Разработано с заботой о деталях',
   },
 
@@ -229,7 +229,7 @@ const TRANSLATIONS = {
     footer_cta_label: 'Start a Project',
     footer_cta_p: 'Have a task? Let’s discuss it for free',
     footer_cta: 'Free Consultation',
-    footer_copy: '© 2025 Nikita. All rights reserved.',
+    footer_copy: '© 2025 Verity Web. All rights reserved.',
     footer_sub: 'Crafted with attention to detail',
   },
 
@@ -343,7 +343,7 @@ const TRANSLATIONS = {
     footer_cta_label: 'Sākt Projektu',
     footer_cta_p: 'Ir uzdevums? Apspriedīsim bez maksas',
     footer_cta: 'Bezmaksas Konsultācija',
-    footer_copy: '© 2025 Nikita. Visas tiesības aizsargātas.',
+    footer_copy: '© 2025 Verity Web. Visas tiesības aizsargātas.',
     footer_sub: 'Izstrādāts ar rūpēm par detaļām',
   }
 };
