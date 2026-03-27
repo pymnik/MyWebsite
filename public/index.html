@@ -874,36 +874,29 @@ async function handleSubmit(e) {
   const form = document.getElementById('contactForm');
   const submitBtn = form.querySelector('button[type="submit"]');
   submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending…';
 
-  const body = {
-    name: form.name.value,
-    email: form.email.value,
-    message: form.message.value,
-  };
+  const formData = new FormData(form);
+  formData.append('access_key', 'YOUR_WEB3FORMS_KEY');
 
   try {
-    const res = await fetch('/api/contact', {
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: formData,
     });
 
     const data = await res.json();
 
-    if (!res.ok || !data.success) {
+    if (data.success) {
+      form.style.display = 'none';
+      const msg = document.getElementById('successMsg');
+      msg.classList.remove('hidden');
+      msg.classList.add('flex');
+    } else {
       throw new Error('Failed');
     }
-
-    // Show success state
-    form.style.display = 'none';
-    const msg = document.getElementById('successMsg');
-    msg.classList.remove('hidden');
-    msg.classList.add('flex');
   } catch (err) {
-    submitBtn.disabled = false;
-    // submitBtn.textContent = 'Send Message'; // match your i18n key
     alert('Something went wrong. Please try again.');
+    submitBtn.disabled = false;
   }
 }
 </script>
