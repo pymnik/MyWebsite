@@ -1,12 +1,12 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
   console.log('Key exists:', !!process.env.WEB3FORMS_KEY);
-  console.log('Body received:', req.body);
 
-  const { name, email, message } = req.body;
+  const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+  const { name, email, message } = body;
 
   const response = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
@@ -27,4 +27,4 @@ export default async function handler(req, res) {
   } else {
     return res.status(500).json({ error: 'Submission failed', detail: data });
   }
-}
+};
