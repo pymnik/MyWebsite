@@ -889,7 +889,11 @@ async function handleSubmit(e) {
       body: JSON.stringify(body),
     });
 
-    if (!res.ok) throw new Error('Failed');
+    const data = await res.json();
+
+    if (!res.ok || !data.success) {
+      throw new Error('Failed');
+    }
 
     // Show success state
     form.style.display = 'none';
