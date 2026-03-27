@@ -3,11 +3,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { name, email, message } = req.body;
+  console.log('Key exists:', !!process.env.WEB3FORMS_KEY);
+  console.log('Body received:', req.body);
 
-  if (!name || !email) {
-    return res.status(400).json({ error: 'Missing required fields' });
-  }
+  const { name, email, message } = req.body;
 
   const response = await fetch('https://api.web3forms.com/submit', {
     method: 'POST',
@@ -21,6 +20,7 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json();
+  console.log('Web3Forms response:', data);
 
   if (data.success) {
     return res.status(200).json({ success: true });
