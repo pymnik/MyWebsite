@@ -15,8 +15,12 @@
 <!-- Canonical -->
 <link rel="canonical" href="https://verity-web.com/">
 
-<!-- Favicon -->
-<!-- <link rel="icon" href="/favicon.ico" type="image/x-icon"> -->
+<link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="shortcut icon" href="assets/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="Verity Web" />
+<link rel="manifest" href="assets/site.webmanifest" />
 
 <!-- Open Graph (Facebook, LinkedIn) -->
 <meta property="og:title" content="Verity Web | Modern IT Solutions">
@@ -70,15 +74,8 @@
 <nav id="navbar" class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
 
-    <a href="#hero" class="flex items-center gap-2.5 group">
-      <div class="w-7 h-7 rounded-lg bg-gray-900 flex items-center justify-center flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
-        <svg width="14" height="14" viewBox="0 0 30 30" fill="none">
-          <rect x="5" y="7" width="8" height="16" rx="2" fill="white" opacity="0.9"/>
-          <rect x="17" y="7" width="8" height="10" rx="2" fill="#60a5fa"/>
-          <rect x="17" y="21" width="8" height="2" rx="1" fill="#60a5fa" opacity="0.45"/>
-        </svg>
-      </div>
-      <span class="text-sm font-medium text-gray-900 tracking-tight">Verity Web</span>
+    <a href="#hero" class="flex items-center transition-transform duration-200 hover:scale-[1.02]">
+      <img src="assets/logo.svg" alt="Verity Web logo" class="w-40 block" />
     </a>
 
     <div class="hidden md:flex items-center gap-8">
@@ -261,8 +258,13 @@
   <div class="hidden md:block -mt-10" id="scene-wrapper" style="width:100%;padding-top:280px;margin-top:-280px;position:relative;">
     <div class="scene" id="scene-inner" style="width:1600px;height:550px;position:absolute;left:50%;transform-origin:top left;">
       <div id="scene" class="relative w-full h-full perspective-1000">
-        <div class="central-hub absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-5/8 w-32 h-32 bg-gradient-to-br from-blue-600 to-blue-400 rounded-3xl shadow-2xl flex items-center justify-center z-10"><div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center"><div class="w-8 h-8 bg-blue-600 rounded-lg"></div></div></div>
-        <div class="floating-card absolute -top-[36.4%] left-[76%] w-68 h-46 bg-white border rounded-2xl shadow-lg p-5"><div class="flex items-center justify-between mb-3"><span class="text-sm text-gray-500">Revenue</span><span class="text-sm text-green-500 font-semibold">+24%</span></div><svg viewBox="0 0 390 156" class="w-full h-20"><defs><linearGradient id="revGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3B82F6" stop-opacity="0.35"/><stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/></linearGradient></defs><path d="M0 130 C39 117, 78 124, 117 91 S195 98, 234 65 S312 72, 351 39 S390 52, 390 36 L390 156 L0 156 Z" fill="url(#revGradient)"/><path d="M0 130 C39 117, 78 124, 117 91 S195 98, 234 65 S312 72, 351 39 S390 52, 390 36" fill="none" stroke="#3B82F6" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="flex justify-between text-[13px] text-gray-400 mt-1"><span>Jan</span><span>Apr</span><span>Aug</span><span>Dec</span></div></div>
+        <div class="central-hub absolute transform -translate-y-5/8 rounded-3xl flex items-center justify-center z-10" style="top: 40%; left: 43.5%; width: 200px; height: 200px;">
+          <svg class="w-full h-full" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="300" rx="42" fill="none"/>
+            <path d="M160.604 50.0028C161.257 50.04 161.844 50.4503 162.56 51.534C163.276 52.6188 164.035 54.2427 165.078 56.4784L230.332 196.365C232.845 201.751 234.713 205.759 235.742 208.606C236.258 210.031 236.548 211.127 236.614 211.94C236.681 212.759 236.512 213.17 236.262 213.386C236.017 213.597 235.58 213.701 234.748 213.497C233.927 213.296 232.846 212.822 231.461 212.069C228.695 210.564 224.855 208.024 219.697 204.613C183.344 180.567 151.082 182.511 124.38 193.418C97.7226 204.307 76.6002 224.137 62.5085 235.801L62.488 235.818L62.4694 235.837C56.3042 242.162 51.0548 246.403 47.6462 248.238C46.7967 248.695 46.0811 248.992 45.5075 249.139C44.9204 249.289 44.5534 249.262 44.3483 249.171C44.1893 249.101 44.0547 248.959 44.0124 248.602C43.9671 248.219 44.0419 247.643 44.3034 246.841C45.0965 244.409 47.0664 240.177 49.9753 234.532C52.8785 228.897 56.7003 221.885 61.1784 213.908C70.1343 197.953 81.7078 178.15 93.7897 157.808C117.953 117.125 144.146 74.2992 155.484 55.8289C156.755 53.759 157.678 52.2565 158.503 51.2772C159.325 50.3008 159.95 49.9655 160.604 50.0028Z" fill="black" stroke="black"/>
+          </svg>
+        </div> 
+       <div class="floating-card absolute -top-[36.4%] left-[76%] w-68 h-46 bg-white border rounded-2xl shadow-lg p-5"><div class="flex items-center justify-between mb-3"><span class="text-sm text-gray-500">Revenue</span><span class="text-sm text-green-500 font-semibold">+24%</span></div><svg viewBox="0 0 390 156" class="w-full h-20"><defs><linearGradient id="revGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3B82F6" stop-opacity="0.35"/><stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/></linearGradient></defs><path d="M0 130 C39 117, 78 124, 117 91 S195 98, 234 65 S312 72, 351 39 S390 52, 390 36 L390 156 L0 156 Z" fill="url(#revGradient)"/><path d="M0 130 C39 117, 78 124, 117 91 S195 98, 234 65 S312 72, 351 39 S390 52, 390 36" fill="none" stroke="#3B82F6" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/></svg><div class="flex justify-between text-[13px] text-gray-400 mt-1"><span>Jan</span><span>Apr</span><span>Aug</span><span>Dec</span></div></div>
         <div class="floating-card absolute -top-[46%] right-[0%] w-44 h-28 bg-white border rounded-2xl shadow-lg p-4"><div class="text-xs text-gray-500 mb-1">Performance</div><div class="text-2xl font-bold text-gray-800">77%</div><div class="mt-2 h-2 bg-gray-200 rounded"><div class="h-2 bg-green-500 rounded" style="width:77%"></div></div><div class="text-[10px] text-gray-400 mt-1">Uptime</div></div>
         <div class="floating-card absolute -top-[23.4%] left-[12%] w-68 h-46 bg-white border rounded-2xl shadow-lg p-5"><div class="flex justify-between mb-3"><span class="text-sm text-gray-500">Traffic</span><span class="text-sm text-green-500 font-semibold">+32%</span></div><svg viewBox="0 0 390 156" class="w-full h-20"><defs><linearGradient id="trafficGradient" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#60A5FA" stop-opacity="0.35"/><stop offset="100%" stop-color="#60A5FA" stop-opacity="0"/></linearGradient></defs><path d="M0 123 C52 111, 91 117, 130 91 S208 98, 260 72 S325 65, 390 39 L390 156 L0 156 Z" fill="url(#trafficGradient)"/><path d="M0 123 C52 111, 91 117, 130 91 S208 98, 260 72 S325 65, 390 39" fill="none" stroke="#3B82F6" stroke-width="5.2" stroke-linecap="round"/></svg><div class="flex justify-between text-[13px] text-gray-400 mt-1"><span>May</span><span>Jun</span><span>Jul</span><span>Sep</span></div></div>
         <div class="floating-card absolute bottom-[20%] left-[12%] w-56 h-48 bg-white border rounded-2xl shadow-lg p-4"><div class="flex justify-between mb-2"><span class="text-xs text-gray-500">Sales</span><span class="text-xs text-green-500 font-semibold">$1.2k</span></div><div class="flex items-end justify-between h-28"><div class="w-5 bg-blue-400 rounded" style="height:60%"></div><div class="w-5 bg-blue-300 rounded" style="height:50%"></div><div class="w-5 bg-blue-400 rounded" style="height:65%"></div><div class="w-5 bg-blue-500 rounded" style="height:85%"></div><div class="w-5 bg-blue-600 rounded" style="height:95%"></div></div><div class="flex justify-center"><div class="flex justify-between w-[94%] text-[10px] text-gray-400 mt-1"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span></div></div></div>
@@ -273,7 +275,7 @@
         <div class="floating-card absolute top-[22%] left-[60%] w-40 h-27 bg-white border rounded-2xl shadow-lg p-4"><div class="text-xs text-gray-500 mb-2">Backup</div><div class="space-y-3"><div class="flex items-center space-x-1"><div class="w-3 h-3 bg-green-500 rounded-full"></div><div class="h-2 bg-gray-300 rounded flex-1"></div></div><div class="flex items-center space-x-1"><div class="w-3 h-3 bg-green-500 rounded-full"></div><div class="h-2 bg-gray-300 rounded flex-1"></div></div></div></div>
         <div class="floating-card absolute top-[10%] left-40 w-40 h-26 bg-white border rounded-2xl shadow-lg p-4"><div class="text-xs text-gray-500 mb-2">Database</div><div class="space-y-1"><div class="h-2 bg-orange-500 rounded w-full"></div><div class="h-2 bg-orange-400 rounded w-3/4"></div><div class="h-2 bg-orange-300 rounded w-5/6"></div><div class="h-2 bg-orange-200 rounded w-4/6"></div></div></div>
         <div class="floating-card absolute top-40 right-40 w-40 h-30 bg-white border rounded-2xl shadow-lg p-4"><div class="text-xs text-gray-500 mb-2">Network</div><div class="space-y-1"><div class="h-3 bg-blue-400 rounded w-full"></div><div class="h-3 bg-blue-400 rounded w-5/6"></div><div class="h-3 bg-blue-300 rounded w-4/6"></div><div class="h-3 bg-blue-200 rounded w-1/2"></div></div></div>
-        <svg class="absolute inset-0 w-full h-full pointer-events-none"><defs><linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="transparent"/><stop offset="50%" stop-color="#9CA3AF"/><stop offset="100%" stop-color="transparent"/></linearGradient><filter id="blur"><feGaussianBlur stdDeviation="0.8"/></filter></defs><g stroke="url(#lineGradient)" stroke-width="1" stroke-linecap="round" filter="url(#blur)"><line x1="50%" y1="60%" x2="15%" y2="15%"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite"/></line><line x1="50%" y1="60%" x2="85%" y2="15%"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/></line><line x1="50%" y1="60%" x2="20%" y2="75%"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="4.5s" repeatCount="indefinite"/></line><line x1="50%" y1="60%" x2="75%" y2="80%"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="5.5s" repeatCount="indefinite"/></line></g></svg>
+        <svg class="absolute inset-0 w-full h-full pointer-events-none"><defs><linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="transparent"/><stop offset="50%" stop-color="#9CA3AF"/><stop offset="100%" stop-color="transparent"/></linearGradient><filter id="blur"><feGaussianBlur stdDeviation="0.8"/></filter></defs><g stroke="url(#lineGradient)" stroke-width="1" stroke-linecap="round" filter="url(#blur)"><line x1="52%" y1="60%" x2="15%" y2="15%"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="4s" repeatCount="indefinite"/></line><line x1="48%" y1="60%" x2="85%" y2="15%"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="5s" repeatCount="indefinite"/></line><line x1="50%" y1="60%" x2="20%" y2="75%"><animate attributeName="opacity" values="0.2;0.5;0.2" dur="4.5s" repeatCount="indefinite"/></line><line x1="50%" y1="60%" x2="75%" y2="80%"><animate attributeName="opacity" values="0.2;0.6;0.2" dur="5.5s" repeatCount="indefinite"/></line></g></svg>
         <div id="particles-desktop" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
       </div>
     </div>
@@ -918,10 +920,9 @@ async function handleSubmit(e) {
   <div class="max-w-6xl mx-auto px-6 pt-12 md:pt-16 pb-10">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
       <div>
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-9 h-9 rounded-xl bg-gray-900 flex items-center justify-center flex-shrink-0"><svg width="18" height="18" viewBox="0 0 30 30" fill="none"><rect x="5" y="7" width="8" height="16" rx="2" fill="white" opacity="0.9"/><rect x="17" y="7" width="8" height="10" rx="2" fill="#60a5fa"/><rect x="17" y="21" width="8" height="2" rx="1" fill="#60a5fa" opacity="0.45"/></svg></div>
-          <span class="text-base font-medium text-gray-900">Verity Web</span>
-        </div>
+        <a href="#hero" class="flex items-center transition-transform duration-200 hover:scale-[1.02] mb-5">
+          <img src="assets/logo.svg" alt="Verity Web logo" class="w-40 block" />
+        </a>
         <p class="text-sm text-gray-400 leading-relaxed max-w-xs" data-i18n="footer_tagline"></p>
         <div class="mt-6 space-y-2">
           <a href="tel:+79001234567" class="footer-link flex items-center gap-2 text-sm text-gray-400"><svg class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z"/></svg>+7 (900) 123-45-67</a>
