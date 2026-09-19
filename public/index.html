@@ -108,15 +108,10 @@
               <span class="text-sm text-gray-700 group-hover:text-gray-900">English</span>
               <svg id="check-EN" class="ml-auto w-3.5 h-3.5 text-gray-900 hidden" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
-            <button onclick="selectLang('LV')" class="lang-option flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-gray-50 text-left transition-colors duration-150 w-full group">
-              <span class="text-base">🇱🇻</span>
-              <span class="text-sm text-gray-700 group-hover:text-gray-900">Latviešu</span>
-              <svg id="check-LV" class="ml-auto w-3.5 h-3.5 text-gray-900 hidden" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <button onclick="selectLang('RU')" class="lang-option flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-gray-50 text-left transition-colors duration-150 w-full group">
-              <span class="text-base">🇷🇺</span>
-              <span class="text-sm text-gray-700 group-hover:text-gray-900">Русский</span>
-              <svg id="check-RU" class="ml-auto w-3.5 h-3.5 text-gray-900 hidden" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <button onclick="selectLang('NL')" class="lang-option flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-gray-50 text-left transition-colors duration-150 w-full group">
+              <span class="text-base">🇳🇱</span>
+              <span class="text-sm text-gray-700 group-hover:text-gray-900">Nederlands</span>
+              <svg id="check-NL" class="ml-auto w-3.5 h-3.5 text-gray-900 hidden" viewBox="0 0 14 14" fill="none"><path d="M2.5 7L5.5 10L11.5 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
         </div>
@@ -143,8 +138,7 @@
       <div class="flex items-center justify-between pt-1">
         <div class="flex items-center gap-1.5">
           <button onclick="selectLang('EN')" id="mob-EN" class="mob-lang flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 text-gray-500 text-xs font-medium tracking-wide hover:border-gray-300 transition-all duration-150">🇬🇧 EN</button>
-          <button onclick="selectLang('LV')" id="mob-LV" class="mob-lang flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 text-gray-500 text-xs font-medium tracking-wide hover:border-gray-300 transition-all duration-150">🇱🇻 LV</button>
-          <button onclick="selectLang('RU')" id="mob-RU" class="mob-lang flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 text-gray-500 text-xs font-medium tracking-wide hover:border-gray-300 transition-all duration-150">🇷🇺 RU</button>
+          <button onclick="selectLang('NL')" id="mob-NL" class="mob-lang flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 text-gray-500 text-xs font-medium tracking-wide hover:border-gray-300 transition-all duration-150">🇳🇱 NL</button>
         </div>
         <a href="#contact" onclick="closeMobileMenu()" class="px-5 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-gray-700 transition-colors duration-200" data-i18n="nav_cta"></a>
       </div>
@@ -153,7 +147,9 @@
 </nav>
 
 <script>
-  const lang = new URLSearchParams(window.location.search).get('lang') || 'EN';
+  const SUPPORTED_LANGS = ['EN', 'NL'];
+  const langParam = new URLSearchParams(window.location.search).get('lang');
+  const lang = SUPPORTED_LANGS.includes(langParam) ? langParam : 'EN';
 
   (function() {
     const langCodeEl = document.getElementById('langCode');
@@ -299,17 +295,7 @@
       scale_content.style.maxWidth = '42rem';
     }
   }
-  else if (lang === 'LV') {
-    scaleh1_1.style.fontSize = '4rem';
-    scaleh1_2.style.fontSize = '4rem';
-    scale_content.style.maxWidth = '60vw';
-    if(window.innerWidth < 500){
-      scaleh1_1.style.fontSize = '3rem';
-      scaleh1_2.style.fontSize = '3rem';
-      scale_content.style.maxWidth = '42rem';
-    }
-  }
-  else if (lang === 'RU') {
+  else if (lang === 'NL') {
     scaleh1_1.style.fontSize = '4rem';
     scaleh1_2.style.fontSize = '4rem';
     scale_content.style.maxWidth = '60vw';
